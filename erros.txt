@@ -1,2 +1,0 @@
-erro ao instalar express (node-modules)
-solução:  npm set strict-ssl false
