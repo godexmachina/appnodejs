@@ -1,8 +1,10 @@
-var express = require('remote')
+var express = require('express')
 var port = 3000
 var app = express()
+var string = "nãofeitofeito/post"
 
 const used = process.memoryUsage().heapUsed / 1024 / 1024;
+
 
 app.get('/', function(req, res){
   res.send(`
@@ -11,31 +13,33 @@ app.get('/', function(req, res){
           <meta charset="utf-8">
       </head>
       <body>
-          <h3>Página inicial</h3>
+          <h1>Página inicial </h1>
       </body>
   </html>
 `)
 })
 
-app.get('/redirect', function(req, res){
-  res.redirect('https://expressjs.com/pt-br/guide/routing.html')
-  console.log('/redirect ok')
+
+app.post('/message/:string?', function(req,res){
+  this.string = req.params.string
+  res.status = 404
+  res.redirect('/message')
+  console.log('post ok, redirecinado >')
 })
 
-app.get('/download', function(req, res){
-  console.log('/mensage/* ok0')
-  res.redirect('https://expressjs.com/pt-br/guide/routing.html')
-})
-
-app.get('/mensage/*', function(req, res){
-  console.log('/mensage/* ok0')
-  res.sendStatus('204')
-})
-
-app.post('/mensage/*', function (req,res){
-  res.json('random.text');
-  console.log('randomtext feito');
-  return app.get('/mensage')  
+app.get('/message', function(req,res){
+  console.log(string)
+  if(string == undefined){
+    res.send('status = 419')
+    console.log('status = 419')
+  }
+  else if(!isNaN(string)){
+    let n = +string
+    setTimeout(() => {
+      res.send('delay de ' + string +'milisegundos');
+    }, n)}
+  else{res.send(string)};
+  console.log('get/message ok')
 })
 
 app.get('/memory_usage', function(req, res){
