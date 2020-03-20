@@ -37,7 +37,7 @@ app.get('/message', function(req,res){
     setTimeout(() => {
       res.send('delay de ' + string +' milisegundos');
     }, n)}
-  else{res.send(string)};
+  else{res.send(string)}
   console.log('get/message ok')
   fs.writeFile("stringsalva.txt", `${string}`, function(err) {
   if(err) {
